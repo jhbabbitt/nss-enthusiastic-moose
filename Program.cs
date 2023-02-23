@@ -1,26 +1,63 @@
 ﻿using System;
+using System.Collections.Generic;
 
-Main();
-
-void Main()
+namespace Magic8Ball
 {
-    Console.WriteLine("Welcome to the Enthusiastic Moose Simulator!");
-    Console.WriteLine("--------------------------------------------");
-    Console.WriteLine();
-
-    // Let the moose speak!
-    MooseSays("H I, I'M  E N T H U S I A S T I C !");
-    MooseSays("I really am enthusiastic");
-
-    // Ask a question
-    MooseAnswer("Is Canada real?", "Really? It seems very unlikely.", "I  K N E W  I T !!!");
-    MooseAnswer("What is the airspeed velocity of an unladen swallow?", "African or European?", "I don't know that. AUUUUUUUGGGGGGGGGGGHHH!");
-    MooseAnswer("Are you the Grand Magus?", "I AM THE GRAND MAGUSSSSSSS", "I only play pos1");
-    MooseAnswer("Will Liquid win TI?", "WE'RE GONNA WIN TI BABY WOOOOOO", "sadge");
-
-    void MooseSays(string message)
+    class Program
     {
-        Console.WriteLine($@"
+        static void Main(string[] args)
+        {
+            // Create a list of possible responses
+            List<string> responses = new List<string>
+            {
+                "As I see it, yes.",
+                "Ask again later.",
+                "Better not tell you now.",
+                "Cannot predict now.",
+                "Concentrate and ask again.",
+                "Don’t count on it.",
+                "It is certain.",
+                "It is decidedly so.",
+                "Most likely.",
+                "My reply is no.",
+                "My sources say no.",
+                "Outlook not so good.",
+                "Outlook good.",
+                "Reply hazy, try again.",
+                "Signs point to yes.",
+                "Very doubtful.",
+                "Without a doubt.",
+                "Yes.",
+                "Yes – definitely.",
+                "You may rely on it."
+            };
+
+            // Create a random number generator
+            Random rand = new Random();
+
+            while (true)
+            {
+                // Ask the user for a question
+                MooseSays("What wisdom do you seek? (Press ENTER to exit)");
+
+                // Read the user's input
+                string question = Console.ReadLine();
+
+                // If the user hit ENTER without asking a question, exit the program
+                if (string.IsNullOrWhiteSpace(question))
+                {
+                    return;
+                }
+
+                // Generate a random integer from 0-19
+                int index = rand.Next(0, 20);
+
+                // Output the response based on the random integer
+                MooseSays(responses[index]);
+            }
+            void MooseSays(string message)
+            {
+                Console.WriteLine($@"
                                       _.--^^^--,
                                     .'          `\
   .-^^^^^^-.                      .'              |
@@ -48,42 +85,9 @@ void Main()
                       \ \'._  ` '_.'
                        `^^` `^^^`
     ");
+            }
+        }
+
     }
-
-
-    bool MooseAsks(string question)
-    {
-        Console.Write($"{question} (Y/N): ");
-        string answer = Console.ReadLine().ToLower();
-
-        while (answer != "y" && answer != "n")
-        {
-            Console.Write($"{question} (Y/N): ");
-            answer = Console.ReadLine().ToLower();
-        }
-
-        if (answer == "y")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    string MooseAnswer(string question, string yesResponse, string noResponse)
-    {
-        bool isCorrect = MooseAsks(question);
-        if (isCorrect)
-        {
-            MooseSays(yesResponse);
-        }
-        else
-        {
-            MooseSays(noResponse);
-        }
-        return null;
-    }
-
 }
+

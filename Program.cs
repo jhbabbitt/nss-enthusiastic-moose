@@ -72,7 +72,7 @@ void Main()
         }
     }
 
-    string MooseAnswer(string question, string yesResponse, string noResponse)
+    void MooseAnswer(string question, string yesResponse, string noResponse)
     {
         bool isCorrect = MooseAsks(question);
         if (isCorrect)
@@ -83,7 +83,6 @@ void Main()
         {
             MooseSays(noResponse);
         }
-        return null;
     }
 
 }
